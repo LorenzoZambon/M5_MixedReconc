@@ -49,6 +49,13 @@ model_bottom = function(data, model_str = "MNN",
   return(model)
 }
 
+# Check that the samples are discrete 
+.check_discrete_samples <- function(samples) {
+  if (!isTRUE(all.equal(unname(samples), as.integer(samples)))) {
+    stop("Input error: samples are not all discrete")
+  }
+}
+
 # Compute pmf from samples
 PMF.from_samples = function(v) {
   .check_discrete_samples(v)
