@@ -28,8 +28,8 @@ get_bott_ts = function(store.train, store.test,
   st = which(colnames(df1)=="d_1")
   
   serie = c(as.numeric(df1[1,st:(st+len-1)]), as.numeric(df2[1,st:(st+h-1)]))
-  train = as.numeric(serie)[1:(len+h-1)]
-  test = as.numeric(serie)[[len+h]]
+  train = serie[1:(len+h-1)]
+  test = serie[[len+h]]
   
   return(list(train = train, test = test))
 }

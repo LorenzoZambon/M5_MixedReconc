@@ -106,8 +106,6 @@ base_fc_store = function(STORE, h_list, n_samples_bott,
 
             for (item.id in unique(store.train$item_id)) {
               
-              print(item.id)
-              
               bts = get_bott_ts(store.train, store.test, item.id, h)
               train = bts$train
               test = bts$test
