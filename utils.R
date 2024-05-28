@@ -21,15 +21,16 @@ get_upp_ts = function(store.train, store.test, lev,
 }
 
 get_bott_ts = function(store.train, store.test, 
-                       item_id, h, len = 1941) {
+                       item.id, h, len = 1941) {
   
   df1 = store.train[store.train$item_id == item.id]
   df2 = store.test[store.test$item_id == item.id]
   st = which(colnames(df1)=="d_1")
   
-  serie = c(df1[,st:(st+len-1)], df2[,st:(st+h-1)] )
+  serie = c(as.numeric(df1[1,st:(st+len-1)]), as.numeric(df2[1,st:(st+h-1)]))
   train = as.numeric(serie)[1:(len+h-1)]
   test = as.numeric(serie)[[len+h]]
+  
   return(list(train = train, test = test))
 }
 

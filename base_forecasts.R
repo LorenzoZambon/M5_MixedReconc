@@ -93,7 +93,7 @@ base_fc_store = function(STORE, h_list, n_samples_bott,
 
   cl <- makeCluster(n_cores) 
   registerDoSNOW(cl)
-  foreach(h = h_list, .packages = c("smooth"),
+  foreach(h = h_list, .packages = c("data.table", "smooth"),
           .export=c("get_bott_ts", "model_bottom", "PMF.from_samples",
                     ".check_discrete_samples")) %dopar% {
             
@@ -105,9 +105,10 @@ base_fc_store = function(STORE, h_list, n_samples_bott,
             fc = list()
 
             for (item.id in unique(store.train$item_id)) {
-
-              bts = get_bott_ts(store.train, store.test,
-                                item_id, h, len = len)
+              
+              print(item.id)
+              
+              bts = get_bott_ts(store.train, store.test, item.id, h)
               train = bts$train
               test = bts$test
 
