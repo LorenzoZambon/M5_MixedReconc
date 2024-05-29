@@ -167,4 +167,85 @@ MIS_samples = function(samples, actual, alpha=0.1) {
   return(samples)
 }
 
+################################################################################
+# Function for computing the skill score
+skill.score <- function(ref, met) {
+  s <- (2 * (ref - met) / (ref + met)) * 100
+  s[is.na(s)] <- 0  # if both numerator and denominator are 0, set skill score to 0
+  return(s)
+}
+
+# Computing the skill scores for all methods, scores, and stores.
+# Save the mean skill scores and return the entire list of skill scores
+compute_SS = function(results_path, STORES, h_list, ref_met = "base", 
+                      methods_ = c("gauss", "gauss_trunc", "mixed_cond", "TD_cond"), 
+                      metrics = c("mase", "mis", "rps")) {
+  
+  # Load scores
+  scores = list()
+  for (STORE in STORES) {
+    scores[[STORE]] = readRDS(paste0(results_path, STORE, "/scores.rds"))
+  }
+  
+  # Compute skill scores
+  SS_u = list()
+  SS_b = list()
+  for (m in metrics) {
+    SS_u[[m]] = list()
+    SS_b[[m]] = list()
+    for (met in methods_) {
+      ss_b = c()
+      ss_u = c()
+      for (STORE in STORES) {
+        ss = skill.score(scores[[STORE]][[m]][[ref_met]],   # matrix 3060 x 14
+                         scores[[STORE]][[m]][[met]])
+        ss_u = c(ss_u, ss[1:11,])
+        ss_b = c(ss_b, ss[12:3060,])
+      }
+      SS_u[[m]][[met]] = ss_u
+      SS_b[[m]][[met]] = ss_b
+    }
+  }
+  
+  # Compute mean skill scores
+  mean_SS_u = list()
+  mean_SS_b = list()
+  for (m in metrics) {
+    mean_SS_u[[m]] = list()
+    mean_SS_b[[m]] = list()
+    for (met in methods_) {
+      mean_SS_u[[m]][[met]] = mean(SS_u[[m]][[met]])
+      mean_SS_b[[m]][[met]] = mean(SS_b[[m]][[met]])
+    }
+  }
+  
+  # Save mean skill scores
+  mean_SS = list(
+    upper  = mean_SS_u,
+    bottom = mean_SS_b
+  )
+  saveRDS(mean_SS, paste0(results_path, "mean_skill_scores.rds"))
+  
+  # Return all skill scores
+  SS = list(
+    upper  = SS_u,
+    bottom = SS_b
+  )
+  return(SS)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

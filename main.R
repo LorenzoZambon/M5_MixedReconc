@@ -31,11 +31,12 @@ DEPT = c("HOBBIES_1", "HOBBIES_2", "HOUSEHOLD_1", "HOUSEHOLD_2",
 
 h_list = 1:14     
 n_samples_b = 1e5          # number of samples for the base forecasts of the bottom
-n_cpu = detectCores() - 2  # maximum number of cpu to be used for parallel computation
+n_cpu = detectCores() - 2  # max number of cpu to use for parallel computation of the base fc
 N_samples_IS = 1e5         # for mixedCond
 N_samples_TD = 1e4         # for TDcond
 alpha_mis = 0.1            # for Mean Interval Score
 n_samp_gtrunc = 1e4        # for computing scores of the truncated Gaussian
+BP_met = c("gauss", "mixed_cond", "TD_cond")  # methods to compare in the boxplots
 
 data_path    = "../data/"     # where data are saved 
 results_path = "../results/"  # where results are saved 
@@ -82,6 +83,23 @@ for (STORE in STORES) {
   print(paste0("Computing scores for store ", STORE))
   compute_scores(STORE, h_list, alpha_mis, n_samp_gtrunc, results_path)
 }
+
+##################################
+# Compute skill scores and boxplots
+
+# Compute the skill scores and produces the boxplots
+# Also save the mean skill scores
+
+
+
+
+
+
+
+
+
+
+
 
 
 
