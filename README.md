@@ -1,8 +1,8 @@
 # M5 - Mixed reconciliation
 
-Code for reproducing the results of the experiments on the M5 dataset of the paper *Probabilistic reconciliation of mixed-type hierarchical time series* [@zambon2024mixed], 
+Code for reproducing the results of the experiments on the M5 dataset of the paper *Probabilistic reconciliation of mixed-type hierarchical time series* (Zambon et al., 2024), 
 published at UAI 2024 (the 40th Conference on Uncertainty in Artificial Intelligence).
-We refer to the paper and to the vignette *Reconciliation of M5 hierarchy with mixed-type forecasts* of the R package `bayesRecon` for all the details on the experiments.
+We refer to the paper and to the vignette *Reconciliation of M5 hierarchy with mixed-type forecasts* of the R package `bayesRecon` for all the details of the experiments.
 
 ## Requirements
 
