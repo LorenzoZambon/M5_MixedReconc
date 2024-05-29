@@ -68,8 +68,6 @@ if (!file.exists(paste0(data_path, "sales_test_validation.csv"))) {
   m5::m5_download(data_path)
 }
 
-STORES = STORES[1:6]
-
 ##################################
 # Compute base forecasts
 
