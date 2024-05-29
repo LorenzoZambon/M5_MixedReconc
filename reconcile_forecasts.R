@@ -13,7 +13,7 @@ rec_fc_store <- function(STORE, h_list, results_path,
   timings <- matrix(nrow=length(h_list), ncol=3)
   
   for (h in h_list) {
-    print(paste0("Reconciliation of store ", STORE, "for h = ", h))
+    print(paste0("Reconciliation of store ", STORE, " for h = ", h))
     
     h_path = paste0(store_path, "/h=", h)
     
@@ -59,7 +59,7 @@ rec_fc_store <- function(STORE, h_list, results_path,
     
     tic("g")
     gauss = reconc_gaussian(S, mu, Sigma)
-    toc(log = TRUE)
+    toc(log = TRUE, quiet = TRUE)
     
     rec_fc$gauss = list(mu_b    = gauss$bottom_reconciled_mean,
                         Sigma_b = gauss$bottom_reconciled_covariance,
@@ -70,7 +70,7 @@ rec_fc_store <- function(STORE, h_list, results_path,
     tic("mc")
     mixcond = reconc_MixCond(S, bottom_pmf, upper_params, bottom_in_type = "pmf",
                              num_samples = N_samples_IS, return_type = "pmf")
-    toc(log = TRUE)
+    toc(log = TRUE, quiet = TRUE)
     
     rec_fc$mixed_cond = list(
       bottom = mixcond$bottom_reconciled$pmf,
@@ -82,7 +82,7 @@ rec_fc_store <- function(STORE, h_list, results_path,
     tic("td")
     td = reconc_TDcond(S, bottom_pmf, upper_params, bottom_in_type = "pmf", 
                        num_samples = N_samples_TD, return_type = "pmf")
-    toc(log = TRUE)
+    toc(log = TRUE, quiet = TRUE)
     
     rec_fc$TD_cond = list(
       bottom = td$bottom_reconciled$pmf,
