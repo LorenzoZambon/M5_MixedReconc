@@ -96,6 +96,7 @@ for (STORE in STORES) {
 ##################################
 # Compute the skill scores and produces the boxplots
 # Also computes and save the mean skill scores
+
 produce_boxplots(STORES, h_list, BP_met, results_path)
 
 ##################################

@@ -1,7 +1,10 @@
 # Computes the skill scores and produces the boxplots, which are saved in BP_path
 produce_boxplots = function(STORES, h_list, BP_met, results_path) {
   
-  BP_path = paste0(results_path, "boxplots/")
+  BP_path = paste0(results_path, "boxplots")
+  if (!dir.exists(BP_path)) {
+    dir.create(BP_path)
+  }
   
   # Compute skill scores
   SS = compute_SS(results_path, STORES, h_list)
@@ -12,7 +15,7 @@ produce_boxplots = function(STORES, h_list, BP_met, results_path) {
                      "#aae4df")
   
   # Boxplots of MASE skill scores
-  pdf("mase.pdf")
+  pdf(paste0(BP_path, "/mase.pdf"))
   par(mfrow = c(2, 1))
   boxplot(SS$upper$mase[BP_met], main = "MASE upper time series", 
           col = custom_colors, ylim = c(-80,80))
@@ -23,7 +26,7 @@ produce_boxplots = function(STORES, h_list, BP_met, results_path) {
   dev.off()
   
   # Boxplots of MIS skill scores
-  pdf("mis.pdf")
+  pdf(paste0(BP_path, "/mis.pdf"))
   par(mfrow = c(2, 1))
   boxplot(SS$upper$mis[BP_met], main = "MIS upper time series", 
           col = custom_colors, ylim = c(-150,150))
@@ -34,7 +37,7 @@ produce_boxplots = function(STORES, h_list, BP_met, results_path) {
   dev.off()
   
   # Boxplots of RPS skill scores
-  pdf("rps.pdf")
+  pdf(paste0(BP_path, "/rps.pdf"))
   par(mfrow = c(2,1))
   boxplot(SS$upper$rps[BP_met], main = "RPS upper time series", 
           col = custom_colors, ylim = c(-80,80))

@@ -27,6 +27,7 @@ compute_scores = function(STORE, h_list = 1:14, alpha_mis = 0.1,
   for (j in seq_along(h_list)) {
     
     h = h_list[[j]]
+    print(paste0("h = ", h))
     h_path = paste0(store_path, "/h=", h)
     
     fc_bottom = readRDS(paste0(h_path, "/base_fc_bottom.rds"))
@@ -51,10 +52,9 @@ compute_scores = function(STORE, h_list = 1:14, alpha_mis = 0.1,
     mase$base[1:n_u,j] = abs(mu_u - actuals_u) / Q_u
     mis$base[1:n_u,j]  = mapply(MIS_gauss, mu_u, sd_u, actuals_u, 
                                 MoreArgs = list(alpha=alpha_mis))
-    crps$base[1:n_u,j] = scoringRules::crps(actuals_u, "norm", mean=mu_u, sd=sd_u)
+    rps$base[1:n_u,j] = scoringRules::crps(actuals_u, "norm", mean=mu_u, sd=sd_u)
     # Bottom
     base_fc_pmf = lapply(fc_bottom, "[[", "pmf")
-    base_fc_medians
     mase$base[(n_u+1):n,j] = mapply(PMF.AE, base_fc_pmf, actuals_b) / Q_b
     mis$base[(n_u+1):n,j] = mapply(PMF.IS, base_fc_pmf, actuals_b, 
                                    MoreArgs = list(alpha=alpha_mis))

@@ -102,8 +102,8 @@ get_hier_M5 = function() {
 # If trunc=TRUE, set all the negative mass to zero
 MIS_gauss = function(mu, sd, actual, alpha=0.1, trunc=FALSE) {
   z = qnorm(1-(alpha/2))
-  u = mu + z * sds
-  l = mu - z * sds
+  u = mu + z * sd
+  l = mu - z * sd
   if (trunc) {  
     l = max(l, 0)  # if negative, set to zero
     u = max(u, 0)
@@ -150,6 +150,34 @@ MIS_samples = function(samples, actual, alpha=0.1) {
 }
 
 ################################################################################
+# Check if it is a covariance matrix (i.e. symmetric p.d.)
+.check_cov <- function(cov_matrix, Sigma_str,pd_check=FALSE,symm_check=FALSE) {
+  # Check if the matrix is square
+  if (!is.matrix(cov_matrix) || nrow(cov_matrix) != ncol(cov_matrix)) {
+    stop(paste0(Sigma_str, " is not square"))
+  }
+  
+  # Check if the matrix is positive semi-definite
+  if(pd_check){
+    eigen_values <- eigen(cov_matrix, symmetric = TRUE)$values
+    if (any(eigen_values <= 0)) {
+      stop(paste0(Sigma_str, " is not positive semi-definite"))
+    }
+  }
+  if(symm_check){
+    # Check if the matrix is symmetric
+    if (!isSymmetric(cov_matrix)) {
+      stop(paste0(Sigma_str, " is not symmetric"))
+    }
+  }
+  # Check if the diagonal elements are non-negative
+  if (any(diag(cov_matrix) < 0)) {
+    stop(paste0(Sigma_str, ": some elements on the diagonal are negative"))
+  }
+  # If all checks pass, return TRUE
+  return(TRUE)
+}
+
 # Sample from a multivariate Gaussian distribution with specified mean and cov. matrix
 .MVN_sample = function(n_samples, mu, Sigma) {
   n = length(mu)
