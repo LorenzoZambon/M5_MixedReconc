@@ -29,4 +29,10 @@ author={Lorenzo Zambon and Dario Azzimonti and Nicolò Rubattu and Giorgio Coran
 booktitle={The 40th Conference on Uncertainty in Artificial Intelligence},
 year={2024}
 }
+@Manual{bayesRecon,
+    title = {bayesRecon: Probabilistic Reconciliation via Conditioning},
+    author = {Dario Azzimonti and Nicolò Rubattu and Lorenzo Zambon and Giorgio Corani},
+    year = {2023},
+    note = {R package version 0.3.0},
+  }
 ```
