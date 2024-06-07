@@ -98,6 +98,6 @@ rec_fc_store <- function(STORE, h_list, results_path,
     tic.clearlog()
     
   }
-  saveRDS(timings, paste0(h_path,"/rec_times.rds"))
+  saveRDS(timings, paste0(store_path,"/rec_times.rds"))
   
 }
