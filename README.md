@@ -23,10 +23,17 @@ The folders where data and results are saved can be set in main.R.
 ## Cite Us
 ```
 @inproceedings{
-zambon2024mixed,
-title={Probabilistic reconciliation of mixed-type hierarchical time series},
-author={Lorenzo Zambon and Dario Azzimonti and Nicolò Rubattu and Giorgio Corani},
-booktitle={The 40th Conference on Uncertainty in Artificial Intelligence},
-year={2024}
+    zambon2024mixed,
+    title={Probabilistic reconciliation of mixed-type hierarchical time series},
+    author={Lorenzo Zambon and Dario Azzimonti and Nicolò Rubattu and Giorgio Corani},
+    booktitle={The 40th Conference on Uncertainty in Artificial Intelligence},
+    year={2024}
 }
+@Manual{
+    bayesRecon,
+    title = {bayesRecon: Probabilistic Reconciliation via Conditioning},
+    author = {Dario Azzimonti and Nicolò Rubattu and Lorenzo Zambon and Giorgio Corani},
+    year = {2023},
+    note = {R package version 0.3.0},
+  }
 ```
