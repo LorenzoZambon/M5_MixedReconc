@@ -44,7 +44,7 @@ model_upper = function(data, model_str = "AXX",
 
 # Fit model on bottom TS
 model_bottom = function(data, model_str = "MNN", 
-                        occ_str = "auto", distr = c("dgamma")) {
+                        occ_str = "odds-ratio", distr = c("dgamma")) {
   model = adam(data, model_str, lags = c(7), 
                occurrence = occ_str, distribution = distr)
   return(model)
